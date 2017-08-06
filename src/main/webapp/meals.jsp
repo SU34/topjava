@@ -54,9 +54,16 @@
     <table>
         <tr>
             <td>
-                ${pageContext.request.contextPath}
+                <input type="datetime" name="dateTime">
             </td>
             <td>
+                <input type="text" name="description">
+            </td>
+            <td>
+                <input type="number" name="calories">
+            </td>
+            <td>
+                <%--<input type="number" name="id" value="${}">--%>
             </td>
             <td>
                 <input type="submit" value="создать пищу">

@@ -6,8 +6,8 @@
 
     <appender name="file" class="ch.qos.logback.core.FileAppender">
         <!--<file>${TOPJAVA_ROOT}/log/topjava.log</file>-->
-        <!--<file>../logs/topjava.log</file>-->
-        <file>/logs/topjava.log</file>
+        <!--<fileru.javawebinar.topjava.logslogs/topjava.log</file>-->
+        <file>topjava.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

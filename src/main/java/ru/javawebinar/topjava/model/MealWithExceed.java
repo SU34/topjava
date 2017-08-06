@@ -23,7 +23,7 @@ public class MealWithExceed {
         this.calories = calories;
         this.exceed = exceed;
         this.id = id;
-        logger.debug("is create object:" + this);
+        logger.trace("is create object:" + this);
     }
 
     public LocalDateTime getDateTime() {

@@ -22,7 +22,7 @@ public class MealServlet extends HttpServlet {
         log.debug("start MealServlet");
 
         req.setAttribute("meals", DataFromDB.getSortedMealWithExceed());
-        log.debug("set attribute mealWithExceedList");
+        log.debug("set attribute mealsList");
 
         req.getRequestDispatcher("meals.jsp").forward(req, resp);
         log.debug("forward to meals");

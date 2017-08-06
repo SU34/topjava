@@ -18,6 +18,9 @@ public class CreateMealServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("create meal (method: POST)");
+        req.getParameter("dateTime");
+        req.getParameter("description");
+        req.getParameter("calories");
         super.doPost(req, resp);
     }
 }

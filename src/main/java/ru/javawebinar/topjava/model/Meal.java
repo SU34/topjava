@@ -1,10 +1,14 @@
 package ru.javawebinar.topjava.model;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 public class Meal {
+    private static final Logger log = LoggerFactory.getLogger(Meal.class);
     private int id;
     private final LocalDateTime dateTime;
 
@@ -12,10 +16,12 @@ public class Meal {
 
     private final int calories;
 
-    public Meal(LocalDateTime dateTime, String description, int calories) {
+    public Meal(int id, LocalDateTime dateTime, String description, int calories) {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
+        this.id = id;
+        log.trace("is created {}", this);
     }
 
     public LocalDateTime getDateTime() {
@@ -34,7 +40,21 @@ public class Meal {
         return dateTime.toLocalDate();
     }
 
+    public int getId() {
+        return id;
+    }
+
     public LocalTime getTime() {
         return dateTime.toLocalTime();
+    }
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", description='" + description + '\'' +
+                ", calories=" + calories +
+                '}';
     }
 }
