@@ -32,9 +32,7 @@ public class DeleteMealServlet extends HttpServlet {
         log.debug("delete meal started (method: POST)");
         int idToDel = Integer.parseInt(req.getParameter("id"));
         log.debug("идентификатор еды, который выделен для удаления {}", idToDel);
-        Meal mealToDel = DataFromDB.mealsList.stream()
-                .filter(ml -> ml.getId() == idToDel)
-                .iterator().next();
+        Meal mealToDel = DataFromDB.getMealById(idToDel);
         log.debug("будет удален следующий объект: %s", mealToDel);
         DataFromDB.mealsList.remove(mealToDel);
         log.warn("удален следующий объект: {}", mealToDel);

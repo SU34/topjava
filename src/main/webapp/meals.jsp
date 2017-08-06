@@ -36,6 +36,7 @@
         <td>${meal.exceed}</td>
         <td>
             <form action="${pageContext.request.contextPath}/meals/edit" method="post">
+                <input type="hidden" value="${meal.id}" name="id">
                 <input type="submit" value="редактировать">
             </form>
         </td>
@@ -53,21 +54,16 @@
 <form action="${pageContext.request.contextPath}/meals/create" method="post">
     <table>
         <tr>
-            <td>
-                <input type="datetime" name="dateTime">
-            </td>
-            <td>
-                <input type="text" name="description">
-            </td>
-            <td>
-                <input type="number" name="calories">
-            </td>
-            <td>
-                <%--<input type="number" name="id" value="${}">--%>
-            </td>
-            <td>
-                <input type="submit" value="создать пищу">
-            </td>
+            <td>дата и время</td>
+            <td>описание</td>
+            <td>калории</td>
+            <td>действие</td>
+        </tr>
+        <tr>
+            <td><input type="datetime-local" name="dateTime"></td>
+            <td><input type="text" name="description"></td>
+            <td><input type="number" name="calories"></td>
+            <td><input type="submit" value="создать пищу"></td>
         </tr>
     </table>
 </form>
