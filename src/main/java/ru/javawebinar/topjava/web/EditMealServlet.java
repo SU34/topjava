@@ -20,8 +20,8 @@ public class EditMealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.debug("doGET !!");
-        log.debug("в обработке:",req.getAttribute("meal").toString());
-        req.getRequestDispatcher("mealEdit.jsp").forward(req, resp);
+        log.debug("в обработке:{}",req.getAttribute("meal").toString());
+        req.getRequestDispatcher("/mealEdit.jsp").forward(req,resp);
     }
 
     @Override

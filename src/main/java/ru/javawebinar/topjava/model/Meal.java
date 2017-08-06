@@ -20,7 +20,14 @@ public class Meal {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        this.id = DataFromDB.idMeals.incrementAndGet();
+        id = DataFromDB.idMeals.incrementAndGet();
+        log.trace("is created {}", this);
+    }
+    public Meal(int id, LocalDateTime dateTime, String description, int calories) {
+        this.dateTime = dateTime;
+        this.description = description;
+        this.calories = calories;
+        this.id = id;
         log.trace("is created {}", this);
     }
 

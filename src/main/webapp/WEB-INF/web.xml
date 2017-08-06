@@ -52,4 +52,12 @@
         <url-pattern>/meals/edit</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>editMealSaveServlet</servlet-name>
+        <servlet-class>ru.javawebinar.topjava.web.EditMealSaveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editMealSaveServlet</servlet-name>
+        <url-pattern>/meals/edit/save</url-pattern>
+    </servlet-mapping>
 </web-app>
