@@ -2,16 +2,13 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.javawebinar.topjava.model.MealWithExceed;
+import ru.javawebinar.topjava.model.DataFromDB;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -22,10 +19,12 @@ public class MealServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        log.debug("forward to meals");
-        List<MealWithExceed> mealWithExceedList = new ArrayList<>();
-        mealWithExceedList.add(new MealWithExceed(LocalDateTime.now(), "des", 23, false));
-        req.setAttribute("meals", mealWithExceedList);
+        log.debug("start MealServlet");
+
+        req.setAttribute("meals", DataFromDB.getSortedMealWithExceed());
+        log.debug("set attribute mealWithExceedList");
+
         req.getRequestDispatcher("meals.jsp").forward(req, resp);
+        log.debug("forward to meals");
     }
 }
