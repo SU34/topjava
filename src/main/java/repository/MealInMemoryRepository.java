@@ -1,9 +1,7 @@
 package repository;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -13,16 +11,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.MealWithExceed;
-import ru.javawebinar.topjava.util.MealsUtil;
 
 /**
  * Created by evg_uh on 06.08.17.
  */
 public class MealInMemoryRepository implements MealRepository {
     private static final Logger log = LoggerFactory.getLogger(MealInMemoryRepository.class);
-
-    public AtomicInteger genIdMeals = new AtomicInteger(0);
-    public Map<Integer, Meal> repository = new ConcurrentHashMap<>();
+    private AtomicInteger genId = new AtomicInteger(0);
+    private Map<Integer, Meal> repository = new ConcurrentHashMap<>();
 
     {
         log.debug("________________________________________");
@@ -41,7 +37,7 @@ public class MealInMemoryRepository implements MealRepository {
     @Override
     public Meal save(Meal meal) {
         if (meal.checkId()) {
-            meal.setId(genIdMeals.incrementAndGet());
+            meal.setId(genId.incrementAndGet());
         }
         return repository.put(meal.getId(), meal);
     }

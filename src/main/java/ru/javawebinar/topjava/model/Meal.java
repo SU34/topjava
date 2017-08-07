@@ -21,15 +21,6 @@ public class Meal {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        id = MealInMemoryRepository.genIdMeals.incrementAndGet();
-        log.trace("is created {}", this);
-    }
-
-    public Meal(int id, LocalDateTime dateTime, String description, int calories) {
-        this.dateTime = dateTime;
-        this.description = description;
-        this.calories = calories;
-        this.id = id;
         log.trace("is created {}", this);
     }
 
@@ -57,7 +48,7 @@ public class Meal {
         return dateTime.toLocalDate();
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
