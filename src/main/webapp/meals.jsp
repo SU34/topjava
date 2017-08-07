@@ -22,9 +22,10 @@
         <td>dateTime</td>
         <td>calories</td>
         <td>exceed</td>
+        <td>id</td>
         <td colspan="2">actions</td>
     </tr>
-    <%--<jsp:useBean id="meals" scope="request" type="java.util.List"/>--%>
+    <jsp:useBean id="meals" scope="request" type="java.util.List"/>
     <c:forEach items="${meals}" var="meal" varStatus="status">
         <%--<jsp:useBean id="meal" scope="request" type="ru.javawebinar.topjava.model.MealWithExceed"/>--%>
         <c:if test="${meal.exceed == true}"><tr bgcolor="red"></c:if>
@@ -34,16 +35,19 @@
         <td>${f:formatLocalDateTime(meal.dateTime,'yyyy-MM-dd hh:mm:ss')}</td>
         <td>${meal.calories}</td>
         <td>${meal.exceed}</td>
+        <td>${meal.id}</td>
         <td>
-            <form action="${pageContext.request.contextPath}/meals/edit" method="post">
+            <form action="${pageContext.request.contextPath}/meals" method="get">
                 <input type="hidden" value="${meal.id}" name="id">
                 <input type="submit" value="редактировать">
+                <input type="hidden" value="edit" name="action">
             </form>
         </td>
         <td>
-            <form action="${pageContext.request.contextPath}/meals/del" method="post">
+            <form action="${pageContext.request.contextPath}/meals" method="get">
                 <input type="submit" value="удалить">
-                <input value="${meal.id}" name="id">
+                <input type="hidden" value="${meal.id}" name="id">
+                <input type="hidden" value="delete" name="action">
             </form>
         </td>
         </tr>
@@ -51,19 +55,11 @@
 </table>
 
 <br>
-<form action="${pageContext.request.contextPath}/meals/create" method="post">
+<form action="${pageContext.request.contextPath}/meals" method="get">
     <table>
         <tr>
-            <td>дата и время</td>
-            <td>описание</td>
-            <td>калории</td>
-            <td>действие</td>
-        </tr>
-        <tr>
-            <td><input type="datetime-local" name="dateTime"></td>
-            <td><input type="text" name="description"></td>
-            <td><input type="number" name="calories"></td>
             <td><input type="submit" value="создать пищу"></td>
+            <input type="hidden" value="new" name="action">
         </tr>
     </table>
 </form>

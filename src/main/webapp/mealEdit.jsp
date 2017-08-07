@@ -13,7 +13,7 @@
     <title>edit meal</title>
 </head>
 <body>
-<form action="${pageContext.request.contextPath}/meals/edit/save" method="post">
+<form action="${pageContext.request.contextPath}/meals" method="get">
     <table border="1">
         <tr>
             <td>описание</td>
@@ -25,6 +25,7 @@
             <td><input type="text" name="description" value="${meal.description}"></td>
             <td><input type="text" name="dateTime" value="${meal.dateTime}"></td>
             <td><input type="text" name="calories" value="${meal.calories}"></td>
+            <input type="hidden" name="action" value="save">
             <input type="hidden" name="id" value="${meal.id}">
             <td><input type="submit" value="save"></td>
         </tr>

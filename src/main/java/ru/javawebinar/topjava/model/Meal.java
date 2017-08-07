@@ -2,6 +2,7 @@ package ru.javawebinar.topjava.model;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -20,7 +21,7 @@ public class Meal {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        id = DataFromDB.idMeals.incrementAndGet();
+        id = UserMealsUtil.idMeals.incrementAndGet();
         log.trace("is created {}", this);
     }
     public Meal(int id, LocalDateTime dateTime, String description, int calories) {
