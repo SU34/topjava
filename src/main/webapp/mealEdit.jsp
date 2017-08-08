@@ -19,7 +19,7 @@
             <td>описание</td>
             <td>дата и время</td>
             <td>калории</td>
-            <td>action</td>
+            <td class="2">action</td>
         </tr>
         <tr>
             <td><input type="text" name="description" value="${meal.description}"></td>
@@ -28,6 +28,7 @@
             <input type="hidden" name="action" value="save">
             <input type="hidden" name="id" value="${meal.id}">
             <td><input type="submit" value="save"></td>
+            <td></td>
         </tr>
     </table>
 </form>
