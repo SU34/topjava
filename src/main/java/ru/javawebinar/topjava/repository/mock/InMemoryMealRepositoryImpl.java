@@ -6,7 +6,9 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,13 +19,15 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     private AtomicInteger counter = new AtomicInteger(0);
 
     {
-        MealsUtil.MEALS.forEach(this::save);
+        MealsUtil.MEALS.forEach(m -> save(m, 2));
+
     }
 
     @Override
-    public Meal save(Meal meal) {
+    public Meal save(Meal meal, int idUser) {
         if (meal.isNew()) {
             meal.setId(counter.incrementAndGet());
+            meal.setOwnerUser(idUser);
         }
         repository.put(meal.getId(), meal);
         return meal;
@@ -35,13 +39,20 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
     }
 
     @Override
-    public Meal get(int id) {
-        return repository.get(id);
+    public Meal get(int id, int idUser) {
+        Meal meal = repository.get(id);
+        return (meal != null && meal.getOwnerUser() == idUser) ? meal : null;
     }
 
     @Override
-    public Collection<Meal> getAll() {
-        return repository.values();
+    public List<Meal> getAll() {
+        log.info("get all");
+        List<Meal> meals = new ArrayList<>();
+        meals.addAll(repository.values());
+        log.debug("success conver to list<Meal>");
+        meals.sort((meal, t1) -> -1 * meal.getDateTime().compareTo(t1.getDateTime()));
+        log.debug("all:{}", meals);
+        return meals;
     }
 }
 

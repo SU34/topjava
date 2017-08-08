@@ -30,7 +30,6 @@ public class ValidationUtil {
             throw new IllegalArgumentException(entity + " must be new (id=null)");
         }
     }
-
     public static void checkIdConsistent(BaseEntity entity, int id) {
 //      http://stackoverflow.com/a/32728226/548473
         if (entity.isNew()) {
