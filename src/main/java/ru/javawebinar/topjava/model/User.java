@@ -23,6 +23,14 @@ public class User extends NamedEntity {
     public User() {
     }
 
+    public User(String name, String password, Set<Role> roles, int caloriesPerDay, String email) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.roles = roles;
+        this.caloriesPerDay = caloriesPerDay;
+    }
+
     public User(Integer id, String name, String email, String password, Role role, Role... roles) {
         this(id, name, email, password, DEFAULT_CALORIES_PER_DAY, true, EnumSet.of(role, roles));
     }
