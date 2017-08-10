@@ -63,6 +63,7 @@ public class Meal extends BaseEntity {
                 ", dateTime=" + dateTime +
                 ", description='" + description + '\'' +
                 ", calories=" + calories +
+                ", ownerUserId=" + ownerUserId +
                 '}';
     }
 }

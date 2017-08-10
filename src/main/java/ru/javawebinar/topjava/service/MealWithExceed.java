@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 public class MealWithExceed {
     private Integer id;
 
+    private Integer ownerUserId;
+
     private final LocalDateTime dateTime;
 
     private final String description;
@@ -39,5 +41,13 @@ public class MealWithExceed {
 
     public boolean isExceed() {
         return exceed;
+    }
+
+    public Integer getOwnerUserId() {
+        return ownerUserId;
+    }
+
+    public void setOwnerUserId(Integer ownerUserId) {
+        this.ownerUserId = ownerUserId;
     }
 }
