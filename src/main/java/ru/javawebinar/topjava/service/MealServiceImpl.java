@@ -22,16 +22,21 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public void delete(int id) throws NotFoundException {
+        Meal meal = repository.get(id);
+        if (meal.getOwnerUserId() != AuthorizedUser.id()) throw new NotFoundException("you can't to delete this meal");
         repository.delete(id);
     }
 
     @Override
     public Meal get(int id) throws NotFoundException {
-        return repository.get(id, AuthorizedUser.id());
+        Meal meal = repository.get(id);
+        if (meal.getOwnerUserId() != AuthorizedUser.id()) throw new NotFoundException("you can't to see this meal");
+        else return meal;
     }
 
     @Override
     public void update(Meal meal) {
+        if (meal.getOwnerUserId()!=AuthorizedUser.id()) throw new NotFoundException("you cant's update this meal");
         repository.save(meal, AuthorizedUser.id());
     }
 

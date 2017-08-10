@@ -11,7 +11,7 @@ public class Meal extends BaseEntity {
 
     private final int calories;
 
-    private Integer ownerUser;
+    private Integer ownerUserId;
 
     public Meal(LocalDateTime dateTime, String description, int calories) {
         this(null, dateTime, description, calories);
@@ -44,12 +44,12 @@ public class Meal extends BaseEntity {
         return dateTime.toLocalTime();
     }
 
-    public Integer getOwnerUser() {
-        return ownerUser;
+    public Integer getOwnerUserId() {
+        return ownerUserId;
     }
 
-    public void setOwnerUser(Integer ownerUser) {
-        this.ownerUser = ownerUser;
+    public void setOwnerUserId(Integer ownerUserId) {
+        this.ownerUserId = ownerUserId;
     }
 
     public boolean isNew() {
