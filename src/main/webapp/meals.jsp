@@ -17,10 +17,12 @@
 </head>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="index.jsp">Home</a></h3>
     <h2>Meal list</h2>
+
     <a href="meals?action=create">Add Meal</a>
     <hr/>
+
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>

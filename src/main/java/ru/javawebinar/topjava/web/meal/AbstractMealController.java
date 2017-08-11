@@ -18,30 +18,30 @@ public abstract class AbstractMealController {
     @Autowired
     private MealService service;
 
-    public List<Meal> getAll() {
+    public List<Meal> getAll(int idUser) {
         log.info("get all");
-        return service.getAll();
+        return service.getAll(idUser);
     }
 
-    public Meal get(int id) {
+    public Meal get(int id, int idUser) {
         log.info("get {}", id);
-        return service.get(id);
+        return service.get(id, idUser);
     }
 
-    public Meal create(Meal meal) {
+    public Meal create(Meal meal, int idUser) {
         log.info("create {}", meal);
         ValidationUtil.checkNew(meal);
-        return service.save(meal);
+        return service.save(meal, idUser);
     }
 
-    public void update(Meal meal, int id) {
-        log.info("update meal:{}, id:{}", meal, id);
-        ValidationUtil.checkIdConsistent(meal, id);
-        service.update(meal);
+    public void update(Meal meal, int idMeal, int idUser) {
+        log.info("update meal:{}, idMeal:{}, idUser:{}", meal, idMeal, idUser);
+        ValidationUtil.checkIdConsistent(meal, idMeal);
+        service.update(meal, idUser);
     }
 
-    public void delete(int id) {
+    public void delete(int id, int idUser) {
         log.info("delete");
-        service.delete(id);
+        service.delete(id, idUser);
     }
 }

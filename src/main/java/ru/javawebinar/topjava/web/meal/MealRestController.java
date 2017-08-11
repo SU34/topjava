@@ -6,30 +6,30 @@ import ru.javawebinar.topjava.model.Meal;
 import java.util.List;
 
 @Controller
-public class MealRestController extends AbstractMealController{
+public class MealRestController extends AbstractMealController {
 
     @Override
-    public List<Meal> getAll() {
-        return super.getAll();
+    public List<Meal> getAll(int idUser) {
+        return super.getAll(idUser);
     }
 
     @Override
-    public Meal get(int id) {
-        return super.get(id);
+    public Meal get(int id, int idUser) {
+        return super.get(id, idUser);
     }
 
     @Override
-    public Meal create(Meal meal) {
-        return super.create(meal);
+    public Meal create(Meal meal, int idUser) {
+        return super.create(meal, idUser);
     }
 
     @Override
-    public void update(Meal meal, int id) {
-        super.update(meal, id);
+    public void update(Meal meal, int id, int idUser) {
+        super.update(meal, id, idUser);
     }
 
     @Override
-    public void delete(int id) {
-        super.delete(id);
+    public void delete(int id, int idUser) {
+        super.delete(id, idUser);
     }
 }
