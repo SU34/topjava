@@ -17,6 +17,9 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int idUser = Integer.valueOf(req.getParameter("authId"));
+        log.debug(req.getHeader("user-agent"));
+//        log.debug(req.getHeader("referer"));
+//        log.debug(req.getRemoteUser());
         AuthorizedUser.setId(idUser);
         resp.sendRedirect("index.html");
     }
