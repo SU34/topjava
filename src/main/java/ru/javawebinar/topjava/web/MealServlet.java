@@ -28,14 +28,20 @@ MealServlet extends HttpServlet {
 
     //    private MealRepository repository;
     private MealRestController mealRestController;
+    private ConfigurableApplicationContext applicationContext;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
 //        repository = new InMemoryMealRepositoryImpl();
-        try (ConfigurableApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
-            mealRestController = applicationContext.getBean(MealRestController.class);
-        }
+        applicationContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
+        mealRestController = applicationContext.getBean(MealRestController.class);
+    }
+
+    @Override
+    public void destroy() {
+        applicationContext.close();
+        super.destroy();
     }
 
     @Override

@@ -56,7 +56,7 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         log.debug("is initialization completed. mealList:{}", mealList);
         List<Meal> result = mealList.stream()
                 .filter(meal -> (meal.getOwnerUserId() != null && meal.getOwnerUserId() == idUser))
-                .sorted((x, y) -> -1 * (x.getDateTime().compareTo(y.getDateTime())))
+                .sorted((x, y) -> (y.getDateTime().compareTo(x.getDateTime())))
                 .collect(Collectors.toList());
         log.debug("return result:{}", result);
         return result;
