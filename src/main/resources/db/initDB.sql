@@ -6,13 +6,13 @@ CREATE SEQUENCE global_seq START 100000;
 
 CREATE TABLE users
 (
-  id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
-  name       VARCHAR NOT NULL,
-  email      VARCHAR NOT NULL,
-  password   VARCHAR NOT NULL,
-  registered TIMESTAMP DEFAULT now(),
-  enabled    BOOL DEFAULT TRUE,
-  calories_per_day INTEGER DEFAULT 2000 NOT NULL
+  id               INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+  name             VARCHAR                  NOT NULL,
+  email            VARCHAR                  NOT NULL,
+  password         VARCHAR                  NOT NULL,
+  registered       TIMESTAMP DEFAULT now()  NOT NULL,
+  enabled          BOOL DEFAULT TRUE        NOT NULL,
+  calories_per_day INTEGER DEFAULT 2000     NOT NULL
 );
 CREATE UNIQUE INDEX users_unique_email_idx ON users (email);
 
@@ -23,3 +23,19 @@ CREATE TABLE user_roles
   CONSTRAINT user_roles_idx UNIQUE (user_id, role),
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+\
+create table meals
+(
+  id serial not null
+    constraint meals_pkey
+    primary key,
+  date_time timestamp,
+  descriptions text,
+  calories integer
+)
+;
+
+create unique index meals_id_uindex
+  on meals (id)
+;
+
