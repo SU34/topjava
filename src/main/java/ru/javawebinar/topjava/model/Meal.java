@@ -1,16 +1,26 @@
 package ru.javawebinar.topjava.model;
 
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
+@NamedQueries(
+        @NamedQuery(name = Meal.DELETE, query = "delete from Meal where id = :id")
+)
+
+@Entity
+@Table(name = "MEALS")
 public class Meal extends BaseEntity {
+
+
+    public static final String DELETE = "Meals.del";
     private LocalDateTime dateTime;
 
+    @Column(name = "description")
     private String description;
 
+    @Column(name = "calories")
     private int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
