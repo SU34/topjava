@@ -1,29 +1,46 @@
 package ru.javawebinar.topjava.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-@NamedQueries(
-        @NamedQuery(name = Meal.DELETE, query = "delete from Meal where id = :id")
-)
+@NamedQueries({
+        @NamedQuery(name = Meal.DELETE, query =
+                "delete from Meal m where m.id = :id and m.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_BY_ID_AND_USER, query =
+                "select mm from Meal mm where mm.id = :id and mm.user.id = :user_id"),
+        @NamedQuery(name = Meal.GET_ALL, query =
+                "select mm from Meal mm where mm.user.id = :user_id order by mm.dateTime desc"),
+        @NamedQuery(name = Meal.GET_BETWEEN_DATE_BY_USER, query =
+                "select mm from Meal mm where mm.dateTime between :start_date and :end_date and mm.user.id = :user_id order by mm.dateTime desc"),
+        @NamedQuery(name = Meal.DELETE_ALL, query =
+                "delete from Meal mm where mm.user.id = :user_id")
+})
 
 @Entity
-@Table(name = "MEALS")
+@Table(name = "meals")
 public class Meal extends BaseEntity {
 
-
     public static final String DELETE = "Meals.del";
+    public static final String GET_BY_ID_AND_USER = "Meals.getByIdAndUser";
+    public static final String GET_ALL = "Meals.getAll";
+    public static final String GET_BETWEEN_DATE_BY_USER = "Meals.betweenDateByUser";
+    public static final String DELETE_ALL = "Meals.deleteAll";
+
+    @Column(name = "date_time", nullable = false)
+    @NotNull
     private LocalDateTime dateTime;
 
-    @Column(name = "description")
+    @Column(name = "description", nullable = false)
     private String description;
 
     @Column(name = "calories")
     private int calories;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Meal() {
