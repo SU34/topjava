@@ -9,34 +9,42 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.bridge.SLF4JBridgeHandler;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import ru.javawebinar.topjava.ActiveDbProfileResolver;
 
 import java.util.concurrent.TimeUnit;
 
 /**
  * Created by evg_uh on 15.09.17.
  */
-@RunWith(SpringRunner.class)
-@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 
-public abstract class AbstractTestClass {
-    protected static Logger resultLog = LoggerFactory.getLogger("result");
+@ContextConfiguration({
+        "classpath:spring/spring-app.xml",
+        "classpath:spring/spring-db.xml"
+})
+@RunWith(SpringJUnit4ClassRunner.class)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
+@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+abstract public class AbstractServiceTest {
+    private static final Logger log = LoggerFactory.getLogger("result");
+
+    private static StringBuilder results = new StringBuilder();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    protected static StringBuilder results = new StringBuilder();
-
     @Rule
+    // http://stackoverflow.com/questions/14892125/what-is-the-best-practice-to-determine-the-execution-time-of-the-bussiness-relev
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
         protected void finished(long nanos, Description description) {
-            String result = String.format("%-25s %7d", description.getMethodName(), TimeUnit.MILLISECONDS.toMillis(nanos));
+            String result = String.format("%-95s %7d", description.getDisplayName(), TimeUnit.NANOSECONDS.toMillis(nanos));
             results.append(result).append('\n');
-            resultLog.info(result + " ms\n");
+            log.info(result + " ms\n");
         }
     };
 
@@ -47,11 +55,11 @@ public abstract class AbstractTestClass {
 
     @AfterClass
     public static void printResult() {
-        resultLog.info("\n---------------------------------" +
+        log.info("\n---------------------------------" +
                 "\nTest                 Duration, ms" +
                 "\n---------------------------------\n" +
                 results +
                 "---------------------------------\n");
+        results.setLength(0);
     }
-
 }
