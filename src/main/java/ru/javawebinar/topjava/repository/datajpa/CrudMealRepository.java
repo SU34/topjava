@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.repository.datajpa;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import ru.javawebinar.topjava.model.Meal;
 
@@ -16,16 +17,16 @@ public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
     @Query("delete from Meal mm where mm.id = ?1 and mm.user.id = ?2")
     int delete(int id, int userId);
 
-    @Modifying
-    @Query("select m from Meal m where m.id = ?1")
-    List<Meal> getAllByUser(int id);
+    @Override
+    @Transactional
+    Meal save(Meal meal);
 
     @Modifying
-    @Query("select m from Meal m where m.id = ?1 and m.user.id = ?2")
-    Meal getByIdAndUser(int idMeal, int idUser);
+    @Query("SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
+    List<Meal> getAll(@Param("userId") Integer userId);
 
+    @SuppressWarnings("JpaQlInspection")
     @Modifying
-    @Query("select mm from Meal mm where mm.dateTime >= ?1 and mm.dateTime<= ?2 and mm.user.id = ?3")
-    List<Meal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
-
+    @Query("SELECT m from Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
+    List<Meal> getBetween(@Param("userId") int userId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
 }
