@@ -11,6 +11,7 @@ import java.util.Arrays;
 
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
+import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 public abstract class AbstractMealServiceTest extends AbstractServiceTest {
@@ -74,5 +75,11 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
                 service.getBetweenDates(
                         LocalDate.of(2015, Month.MAY, 30),
                         LocalDate.of(2015, Month.MAY, 30), USER_ID));
+    }
+
+    @Test
+    public void testGetUserWithMeals() {
+        Meal withUser = service.getWithUser(MEAL1_ID);
+        System.out.println(withUser.getUser());
     }
 }

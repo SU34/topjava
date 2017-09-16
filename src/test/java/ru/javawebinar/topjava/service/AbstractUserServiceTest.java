@@ -79,4 +79,10 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         service.update(updated);
         MATCHER.assertEquals(updated, service.get(USER_ID));
     }
+
+    @Test
+    public void testGetUserWithMeal() {
+        User user = service.getWithMeals(USER.getId());
+        System.out.println(user.getMeals());
+    }
 }
