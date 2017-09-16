@@ -12,20 +12,22 @@ import java.util.List;
 
 public interface CrudMealRepository extends JpaRepository<Meal, Integer> {
 
-    @Transactional
     @Modifying
-    @Query("delete from Meal mm where mm.id = ?1 and mm.user.id = ?2")
+    @Transactional
+    @Query("DELETE FROM Meal m WHERE m.id = ?1 and m.user.id = ?2")
     int delete(int id, int userId);
 
     @Override
-    Meal save(Meal meal);
+    Meal save(Meal item);
 
     @Modifying
     @Query("SELECT m FROM Meal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC")
     List<Meal> getAll(@Param("userId") Integer userId);
 
     @SuppressWarnings("JpaQlInspection")
-    @Modifying
     @Query("SELECT m from Meal m WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC")
     List<Meal> getBetween(@Param("userId") int userId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+
+    @Query("SELECT m FROM Meal m JOIN FETCH m.user WHERE m.id = ?1 and m.user.id = ?2")
+    Meal getWithUser(int id, int userId);
 }
