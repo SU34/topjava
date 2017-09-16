@@ -79,7 +79,7 @@ public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Test
     public void testGetUserWithMeals() {
-        Meal withUser = service.getWithUser(MEAL1_ID);
+        Meal withUser = service.getWithUser(MEAL1.getId(), ADMIN_ID);
         System.out.println(withUser.getUser());
     }
 }
