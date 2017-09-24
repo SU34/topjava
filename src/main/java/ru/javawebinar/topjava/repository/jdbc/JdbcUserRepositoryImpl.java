@@ -4,17 +4,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowCallbackHandler;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.model.Role;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Repository
@@ -114,5 +119,23 @@ public class JdbcUserRepositoryImpl implements UserRepository {
             u.setRoles(roles);
         }
         return u;
+    }
+
+    public List<Meal> specialList() {
+        List<Meal> mealList = new ArrayList<>();
+        System.out.println("STARTING !!!!");
+        jdbcTemplate.query("select * from meals", new RowCallbackHandler() {
+            @Override
+            public void processRow(ResultSet rs) throws SQLException {
+                Meal meal = new Meal(rs.getInt("id"),
+                        LocalDateTime.now(),
+                        rs.getString("description"),
+                        rs.getInt("calories"));
+                mealList.add(meal);
+            }
+        });
+        System.out.println("!!!! END");
+        System.out.println(mealList);
+        return mealList;
     }
 }

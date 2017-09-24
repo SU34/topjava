@@ -20,5 +20,8 @@
 </ul>
 </section>
 <jsp:include page="fragments/footer.jsp"/>
+
+<a href="${pageContext.request.contextPath}/tests/one">перейти на страницу тестов</a>
+
 </body>
 </html>
