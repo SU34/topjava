@@ -34,19 +34,3 @@ CREATE TABLE meals (
   FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX meals_unique_user_datetime_idx ON meals (user_id, date_time)
-\
-create table meals
-(
-  id serial not null
-    constraint meals_pkey
-    primary key,
-  date_time timestamp,
-  descriptions text,
-  calories integer
-)
-;
-
-create unique index meals_id_uindex
-  on meals (id)
-;
-
